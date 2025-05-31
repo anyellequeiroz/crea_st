@@ -137,6 +137,15 @@ elif selected_option == "Mapeamento de Obras":
                     st.write("🏡 Ambiente edificado")
                     st.image("casa.png", width=100)
 
+        else:
+            open_modal = st.button("🤖 Gerar análise com IA")
+            if open_modal:
+                modal.open()
+
+            if modal.is_open():
+                with modal.container():
+                    st.write("🔍 Lamentamos, mas ainda não reconhecemos essa imagem.")
+
 elif selected_option == "Relatório automático":
     st.markdown(
         "<h1 style='color: white;'>🏗️ Formulário de Fiscalização de Obra</h1>",
