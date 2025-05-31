@@ -4,7 +4,6 @@ from streamlit_modal import Modal
 
 st.set_page_config(page_title="creIA", page_icon="logo.png",  layout="wide")
 
-# Centraliza o menu usando columns
 cols = st.columns([1, 3, 1])
 with cols[1]:
     selected_option = st.radio("", ["Overview", "Mapeamento de Obras", "Relatório automático",  "Rotas de Fiscalização", "About"], horizontal=True)
@@ -26,21 +25,7 @@ st.markdown(
 
 if selected_option == "Overview":
 
-    #st.title("🧠 CreIA: Inteligência que constrói, visão que previne")
     st.markdown('<h1 style="color: white;">🧠 CreIA: Inteligência que constrói, visão que previne</h1>', unsafe_allow_html=True)
-
-    # texto = """
-    # CreIA é um sistema de inteligência artificial que utiliza redes neurais convolucionais para identificar imagens de obras e obter seus endereços. Com visão computacional, auxilia na geração de rotas de fiscalização e criação de relatórios.
-    # Uma ferramenta inovadora para inspeções eficientes por parte do CREA-PB.
-    # """
-
-    # st.markdown(
-    #     f"""
-    #     <div style='text-align: justify; font-size: 16px;'>
-    #         {texto}
-    #     """,
-    #     unsafe_allow_html=True
-    # )
 
     texto = """
     CreIA é um sistema de inteligência artificial que utiliza redes neurais convolucionais para identificar imagens de obras e obter seus endereços. Com visão computacional, auxilia na geração de rotas de fiscalização e criação de relatórios.
@@ -90,11 +75,21 @@ if selected_option == "Overview":
         st.write("")
 
 elif selected_option == "Mapeamento de Obras":
-    st.subheader("Sistema inteligente para monitoramento urbano por meio da análise de imagens aéreas e identificação de obras em andamento 🛰️")
-    uploaded_file = st.file_uploader("📤 Carregar um arquivo:")
+
+    st.markdown(
+    """
+    <h3 style='color: white;'>
+        Sistema inteligente para monitoramento urbano por meio da análise de imagens aéreas e identificação de obras em andamento 🛰️
+    </h3>
+    """,
+    unsafe_allow_html=True
+    )
+
+    st.markdown("<p style='color: white; font-weight: bold;'>📤 Carregar um arquivo:</p>", unsafe_allow_html=True)
+    uploaded_file = st.file_uploader("")
 
     if uploaded_file is not None:
-        st.write("✅ Arquivo enviado com sucesso!")
+        st.markdown("<p style='color: white;'>✅ Arquivo enviado com sucesso!</p>", unsafe_allow_html=True)
         name = uploaded_file.name
         image = Image.open(uploaded_file)
         st.image(image, use_container_width=True)
@@ -143,39 +138,60 @@ elif selected_option == "Mapeamento de Obras":
                     st.image("casa.png", width=100)
 
 elif selected_option == "Relatório automático":
-    st.title("🏗️ Formulário de Fiscalização de Obra")
+    st.markdown(
+        "<h1 style='color: white;'>🏗️ Formulário de Fiscalização de Obra</h1>",
+        unsafe_allow_html=True
+    )
 
     with st.form("form_fiscalizacao_obra"):
-        st.subheader("📍 Informações do Local")
-        endereco = st.text_input("Endereço da obra:")
+        st.markdown(
+            "<h3 style='color: white;'>📍 Endereço da obra</h3>",
+            unsafe_allow_html=True
+        )
+        endereco = st.text_input("")
 
-        st.subheader("📸 Fotos da Obra")
-        fotos = st.file_uploader("Envie fotos do local", accept_multiple_files=True, type=["jpg", "jpeg", "png"])
+        st.markdown(
+            "<h3 style='color: white;'>📸 Envie fotos da obra</h3>",
+            unsafe_allow_html=True
+        )
+        fotos = st.file_uploader("", accept_multiple_files=True, type=["jpg", "jpeg", "png"])
 
-        st.subheader("🆔 Identificação CREA")
-        tem_adesivo = st.radio("Há adesivo do CREA visível?", ["Sim", "Não"])
+        st.markdown(
+            "<h3 style='color: white;'>🆔 Há adesivo do CREA visível?</h3>",
+            unsafe_allow_html=True
+        )
+        tem_adesivo = st.radio("", ["Sim", "Não"])
 
-        st.subheader("📞 Responsável pela Obra")
+        st.markdown(
+            "<h3 style='color: white;'>📞 Responsável pela Obra</h3>",
+            unsafe_allow_html=True
+        )
         nome_responsavel = st.text_input("Nome do responsável:")
         contato_responsavel = st.text_input("Contato (telefone ou e-mail):")
 
-        st.subheader("📝 Observações adicionais")
-        observacoes = st.text_area("Observações:")
+        st.markdown(
+            "<h3 style='color: white;'>📝 Observações adicionais</h3>",
+            unsafe_allow_html=True
+        )
+        observacoes = st.text_area("")
 
         enviado = st.form_submit_button("Enviar")
 
     if enviado:
         st.success("✅ Formulário enviado com sucesso!")
 
-        st.write("### 📋 Dados coletados:")
-        st.write(f"**Endereço:** {endereco}")
-        st.write(f"**Adesivo do CREA presente?** {tem_adesivo}")
-        st.write(f"**Responsável:** {nome_responsavel}")
-        st.write(f"**Contato:** {contato_responsavel}")
-        st.write(f"**Observações:** {observacoes}")
+        st.markdown("<h3 style='color: white;'>📋 Dados coletados:</h3>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'><strong>Endereço:</strong> {endereco}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'><strong>Adesivo do CREA presente?</strong> {tem_adesivo}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'><strong>Responsável:</strong> {nome_responsavel}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'><strong>Contato:</strong> {contato_responsavel}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'><strong>Observações:</strong> {observacoes}</p>", unsafe_allow_html=True)
 
 elif selected_option == "Rotas de Fiscalização":
-    st.subheader("🧭 IA para ajudar em mapeamento de rota a partir de palavras-chave")
+    st.markdown(
+        "<h3 style='color: white;'>🧭 IA para ajudar em mapeamento de rota a partir de palavras-chave</h3>",
+        unsafe_allow_html=True
+    )
 
     keywords = st.text_input("📝 Digite palavras-chave:", "")
 
@@ -218,13 +234,11 @@ elif selected_option == "Rotas de Fiscalização":
     if st.button("🔍 Buscar informações"):
         if keywords:
             for hospital in hospitais:
-                st.markdown(f"### 🏥 {hospital['nome']}")
-                st.write(f"📍 Endereço: {hospital['endereco']}")
-                st.write(f"📞 Telefone: {hospital['telefone']}")
-                st.markdown("---")
+                st.markdown(f"<h3 style='color: white;'>🏥 {hospital['nome']}</h3>", unsafe_allow_html=True)
+                st.markdown(f"<p style='color: white;'>📍 <strong>Endereço:</strong> {hospital['endereco']}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='color: white;'>📞 <strong>Telefone:</strong> {hospital['telefone']}</p>", unsafe_allow_html=True)
+                st.markdown("<hr style='border: 1px solid white;'>", unsafe_allow_html=True)
 
-        else:
-            st.write('ok')
 
 elif selected_option == "About":
     st.title("About")
