@@ -6,7 +6,7 @@ st.set_page_config(page_title="creIA", page_icon="logo.png",  layout="wide")
 
 cols = st.columns([1, 3, 1])
 with cols[1]:
-    selected_option = st.radio("", ["Overview", "Mapeamento de Obras", "Relatório automático",  "Rotas de Fiscalização", "About"], horizontal=True)
+    selected_option = st.radio("", ["Overview", "Mapeamento de Obras", "Relatório automático",  "Rotas de Fiscalização", "Sobre"], horizontal=True)
 
 st.markdown(
     """
@@ -143,12 +143,14 @@ elif selected_option == "Relatório automático":
         unsafe_allow_html=True
     )
 
+
     with st.form("form_fiscalizacao_obra"):
         st.markdown(
             "<h3 style='color: white;'>📍 Endereço da obra</h3>",
             unsafe_allow_html=True
         )
-        endereco = st.text_input("")
+        endereco = st.text_input("Endereço:")
+        coord = st.text_input("Coordenadas geográficas:")
 
         st.markdown(
             "<h3 style='color: white;'>📸 Envie fotos da obra</h3>",
@@ -168,12 +170,14 @@ elif selected_option == "Relatório automático":
         )
         nome_responsavel = st.text_input("Nome do responsável:")
         contato_responsavel = st.text_input("Contato (telefone ou e-mail):")
+        cpf_responsavel = st.text_input("CPF/CNPJ do responsável:")
 
         st.markdown(
             "<h3 style='color: white;'>📝 Observações adicionais</h3>",
             unsafe_allow_html=True
         )
-        observacoes = st.text_area("")
+        observacoes = st.text_area("Descrição da obra:")
+        obs_2 = st.text_area("Atividades da obra:")
 
         enviado = st.form_submit_button("Enviar")
 
@@ -181,11 +185,13 @@ elif selected_option == "Relatório automático":
         st.success("✅ Formulário enviado com sucesso!")
 
         st.markdown("<h3 style='color: white;'>📋 Dados coletados:</h3>", unsafe_allow_html=True)
-        st.markdown(f"<p style='color: white;'><strong>Endereço:</strong> {endereco}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'><strong>Endereço:</strong> {endereco}, {coord}</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: white;'><strong>Adesivo do CREA presente?</strong> {tem_adesivo}</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: white;'><strong>Responsável:</strong> {nome_responsavel}</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: white;'><strong>Contato:</strong> {contato_responsavel}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p style='color: white;'><strong>Observações:</strong> {observacoes}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'><strong>CPF/CNPJ:</strong> {cpf_responsavel}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'><strong>Descrição da obra:</strong> {observacoes}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: white;'><strong>Atividades da obra:</strong> {obs_2}</p>", unsafe_allow_html=True)
 
 elif selected_option == "Rotas de Fiscalização":
     st.markdown(
@@ -239,7 +245,89 @@ elif selected_option == "Rotas de Fiscalização":
                 st.markdown(f"<p style='color: white;'>📞 <strong>Telefone:</strong> {hospital['telefone']}</p>", unsafe_allow_html=True)
                 st.markdown("<hr style='border: 1px solid white;'>", unsafe_allow_html=True)
 
+elif selected_option == "Sobre":
+    st.header("📘 MANUAL DE UTILIZAÇÃO – SISTEMA CRE-IA")
 
-elif selected_option == "About":
-    st.title("About")
-    st.write("This app was built with Streamlit.")
+    # Objetivo
+    st.header("📌 1. OBJETIVO DO SISTEMA")
+    st.markdown("""
+    O **CRE-IA** é uma plataforma de inteligência artificial aplicada à fiscalização de obras.
+    Ela permite:
+    - Identificar construções irregulares
+    - Gerar relatórios automáticos
+    - Traçar rotas de fiscalização com base em dados públicos e imagens georreferenciadas
+    """)
+
+    st.markdown("---")
+
+    # Menu Principal
+    st.header("🧭 2. MENU PRINCIPAL")
+    st.subheader("2.1 🔍 Mapeamento de Obras")
+    st.markdown("""
+    **Objetivo:** identificar automaticamente a existência de obras em imagens.
+
+    **Como usar:**
+    1. Clique na aba “Mapeamento de Obras”.
+    2. Faça upload de uma imagem aérea (.jpg).
+    3. O sistema irá:
+    - Detectar construções presentes
+    - Informar coordenadas geográficas (latitude e longitude)
+    - Fornecer endereço aproximado com base na geolocalização
+
+    ✅ Ideal para confirmar a existência de obras em áreas suspeitas ou distantes.
+    """)
+
+    st.markdown("---")
+
+    st.subheader("2.2 📄 Relatório Automático")
+    st.markdown("""
+    **Objetivo:** gerar um relatório técnico com base nas informações coletadas da obra.
+
+    **Como usar:**
+    1. Acesse a aba “Relatório Automático”.
+    2. Preencha os campos solicitados:
+    - Localização
+    - Coordenadas
+    - Tipo de obra
+    - Situação encontrada
+    - Responsável técnico (se houver)
+    3. O sistema compilará automaticamente um relatório em texto formal e técnico.
+
+    ✅ Útil para gerar relatórios padronizados prontos para anexar a processos ou enviar ao CREA.
+    """)
+
+    st.markdown("---")
+
+    st.subheader("2.3 🗺️ Rotas de Fiscalização")
+    st.markdown("""
+    **Objetivo:** automatizar a identificação de locais a serem fiscalizados.
+
+    **Como usar:**
+    1. Acesse a aba “Rotas de Fiscalização”.
+    2. Digite palavras-chave relacionadas aos empreendimentos (ex: “loteamento”, “construção civil”, “obra residencial”).
+    3. O sistema realiza _data scraping_ no Google Maps e retorna:
+    - Nome do empreendimento
+    - Endereço
+    - Coordenadas
+    4. Os dados podem ser usados para montar a rota da fiscalização.
+
+    ✅ Ferramenta ideal para planejar visitas técnicas com base em buscas inteligentes.
+    """)
+
+    st.markdown("---")
+
+    # Considerações
+    st.header("🛡️ 3. CONSIDERAÇÕES DE USO")
+    st.markdown("""
+    - O sistema é de uso técnico e restrito a profissionais vinculados ao CREA.
+    - As imagens devem ser **nítidas e recentes** para maior precisão no mapeamento.
+    - Os dados coletados devem ser **validados antes de qualquer autuação**.
+    """)
+
+    st.markdown("---")
+
+    # Suporte
+    st.header("🧾 4. SUPORTE E CONTATO")
+    st.markdown("""
+    Para dúvidas técnicas ou problemas de acesso, entre em contato com o suporte responsável pela plataforma via **e-mail institucional do CREA**.
+    """)
