@@ -134,7 +134,7 @@ elif selected_option == "Mapeamento de Obras":
 
             if modal.is_open():
                 with modal.container():
-                    st.write("🏡 Ambiente edificado")
+                    st.write("🏡 Consegue mudar pra "Não foram identificadas obras no local."")
                     st.image("casa.png", width=100)
 
         else:
