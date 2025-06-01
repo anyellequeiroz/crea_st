@@ -6,7 +6,7 @@ st.set_page_config(page_title="creIA", page_icon="logo.png",  layout="wide")
 
 cols = st.columns([1, 3, 1])
 with cols[1]:
-    selected_option = st.radio("", ["Overview", "Mapeamento de Obras", "Relatório automático",  "Rotas de Fiscalização", "Sobre"], horizontal=True)
+    selected_option = st.radio("", ["Overview", "Mapeamento de Obras", "Relatório automático",  "Busca Personalizada", "Sobre"], horizontal=True)
 
 st.markdown(
     """
@@ -202,7 +202,7 @@ elif selected_option == "Relatório automático":
         st.markdown(f"<p style='color: white;'><strong>Descrição da obra:</strong> {observacoes}</p>", unsafe_allow_html=True)
         st.markdown(f"<p style='color: white;'><strong>Atividades da obra:</strong> {obs_2}</p>", unsafe_allow_html=True)
 
-elif selected_option == "Rotas de Fiscalização":
+elif selected_option == "Busca Personalizada":
     st.markdown(
         "<h3 style='color: white;'>🧭 IA para ajudar em mapeamento de rota a partir de palavras-chave</h3>",
         unsafe_allow_html=True
